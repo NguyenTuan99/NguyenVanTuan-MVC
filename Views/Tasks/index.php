@@ -14,10 +14,12 @@
         foreach ($tasks as $task)
         {
             echo '<tr>';
-            echo "<td>" . $task['id'] . "</td>";
-            echo "<td>" . $task['title'] . "</td>";
-            echo "<td>" . $task['description'] . "</td>";
-            echo "<td class='text-center'><a class='btn btn-info btn-xs' href='/MVC/tasks/edit/" . $task["id"] . "' ><span class='glyphicon glyphicon-edit'></span> Edit</a> <a href='/MVC/tasks/delete/" . $task["id"] . "' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> Del</a></td>";
+            echo "<td>" . $task->id . "</td>";
+            echo "<td>" . $task->title . "</td>";
+            echo "<td>" . $task->description . "</td>";
+            echo "<td class='text-center'>
+                <a class='btn btn-info btn-xs' href='" . WEBROOT . "tasks/edit/" . $task->id . "' ><span class='glyphicon glyphicon-edit'></span> Edit</a>
+                <a href='" . WEBROOT . "tasks/delete/" . $task->id . "' class='btn btn-danger btn-xs'><span class='glyphicon glyphicon-remove'></span> Del</a></td>";
             echo "</tr>";
         }
         ?>

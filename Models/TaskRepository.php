@@ -2,9 +2,7 @@
 
 namespace MVC\Models;
 
-use MVC\Models\TaskModel;
 use MVC\Models\TaskResourceModel;
-use MVC\Core\ResourceModel;
 
 class TaskRepository
 {
@@ -25,9 +23,9 @@ class TaskRepository
         return $this->taskResource->save($model);
     }
 
-    public function get($id)
+    public function get($model)
     {
-        return $this->taskResource->find($id);
+        return $this->taskResource->find($model);
     }
 
     public function delete($model)
@@ -35,7 +33,7 @@ class TaskRepository
         return $this->taskResource->delete($model);
     }
 
-    public function getALl()
+    public function getAll()
     {
         return $this->taskResource->showAll();
     }

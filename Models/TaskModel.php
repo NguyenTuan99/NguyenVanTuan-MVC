@@ -2,7 +2,6 @@
 
 namespace MVC\Models;
 
-use Composer\Autoload\ClassLoader;
 use MVC\Core\Model;
 
 class TaskModel extends Model

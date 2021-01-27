@@ -21,6 +21,7 @@
             $x = get_class($this);
             $y = strrpos(get_class($this),'\\');
             $str = substr($x,$y+1);
+            
             require(ROOT . "Views/" . ucfirst(str_replace('Controller', '', $str)) . '/' . $filename . '.php');
           
             $content_for_layout = ob_get_clean();

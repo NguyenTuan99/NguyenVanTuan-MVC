@@ -13,7 +13,7 @@ class Dispatcher
     public function dispatch()
     {
         $this->request = new Request();
-        
+                
         Router::parse($this->request->url, $this->request);
         
         $controller = $this->loadController();
@@ -23,8 +23,9 @@ class Dispatcher
 
     public function loadController()
     {
-        $name = $this->request->controller . "Controller";
-        $file =  'MVC\\Controllers\\' . $name;
+        $name = ucfirst($this->request->controller);
+        $controllerName = $name ."Controller";
+        $file = 'MVC\\Controllers\\'. $controllerName;
         $controller = new $file();
         return $controller;
     }

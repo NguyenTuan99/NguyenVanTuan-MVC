@@ -4,6 +4,7 @@ namespace MVC\Core;
 
 use MVC\Core\ResourceModelInterface;
 use MVC\Config\Database;
+use PDO;
 
 class ResourceModel implements ResourceModelInterface
 {
@@ -36,8 +37,8 @@ class ResourceModel implements ResourceModelInterface
 
             $strKeyIns = implode(', ',$insert_key);
             $strPlaceholder=implode(', ',$placeholder);
-            $sql_insert="INSERT INTO $this->table ({$strKeyIns}) VALUES ({$strPlaceholder})";
-            $obj_insert =Database::getBdd()->prepare($sql_insert);
+            $sql_insert = "INSERT INTO $this->table ({$strKeyIns}) VALUES ({$strPlaceholder})";
+            $obj_insert = Database::getBdd()->prepare($sql_insert);
 
             return $obj_insert->execute($arrModel);
         } else {
@@ -56,7 +57,7 @@ class ResourceModel implements ResourceModelInterface
     public function delete($model)
     {
         $id = $model->getId();
-        $sql = "DELETE FROM $this->table WHERE id =".$id;
+        $sql = "DELETE FROM $this->table WHERE id = " . $id;
         $req = Database::getBdd()->prepare($sql);
         return $req->execute();
     }
@@ -66,11 +67,12 @@ class ResourceModel implements ResourceModelInterface
         $sql = "SELECT * FROM $this->table";
         $req = Database::getBdd()->prepare($sql);
         $req->execute();
-        return $req->fetchAll();
+        return $req->fetchAll(PDO::FETCH_OBJ);
     }
 
     public function find($id)
     {
+
         $sql = "SELECT * FROM $this->table WHERE id = " . $id;
         $req = Database::getBdd()->prepare($sql);
         $req->execute();

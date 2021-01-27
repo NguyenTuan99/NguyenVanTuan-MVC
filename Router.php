@@ -1,6 +1,6 @@
 <?php
 
-    namespace MVC;
+namespace MVC;
 
 class Router
 {
@@ -23,7 +23,6 @@ class Router
             $request->action = $explode_url[1];
             $request->params = array_slice($explode_url, 2);
         }
-
     }
 }
 ?>

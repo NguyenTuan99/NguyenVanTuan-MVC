@@ -5,71 +5,74 @@ namespace MVC\Controllers;
 use MVC\Core\Controller;
 use MVC\Models\TaskModel;
 use MVC\Models\TaskRepository;
-use MVC\Models\TaskResourceModel;
 
 class TasksController extends Controller
 {
+    private $taskRepository;
+
+        public function __construct()
+        {
+            $this->taskRepository = new TaskRepository();
+        }
+
     function index()
     {
+        $task = new TaskModel();
 
-        $tasks = new TaskRepository();
-        $d['tasks'] = $tasks->getAll();
+        $d['tasks'] = $this->taskRepository->getAll($task);
+
         $this->set($d);
         $this->render("index");
     }
 
     function create()
     {
-        if (isset($_POST["title"]))
-        {
+        extract($_POST);
 
-            $task = new TaskRepository();
-            $model = new TaskModel();
+        if (isset($_POST["title"])) {
 
-            $model->setTitle($_POST["title"]);
-            $model->setDescription($_POST["description"]);
-       
-            if ($task->add($model))
+            $task = new TaskModel();
+            $task->setTitle($title);
+            $task->setDescription($description);
+
+            if ($this->taskRepository->add($task))
             {
-                 header("Location: " . WEBROOT . "Tasks/index");               
-            }
-            
+                header("Location: " . WEBROOT . "Tasks/index");
+            }   
         }
             $this->render("create");
     }
 
     function edit($id)
     {
-      
-        $task = new TaskRepository();
+        extract($_POST);
 
-        $d["task"] = $task->get($id);
+        $task = new TaskModel();
 
-        $model = new TaskModel();
+        $d['task'] = $this->taskRepository->get($id);
 
-        if (isset($_POST["title"]))
-        {
-            $model->setTitle($_POST["title"]);
-            $model->setDescription($_POST["description"]);
-            
-            if ($task->update($model))
-            {
-                header("Location: " . WEBROOT . "tasks/index");
+        if (isset($_POST["title"])) {
+
+            $task->setId($id);
+            $task->setTitle($title);
+            $task->setDescription($description);
+
+            if ($this->taskRepository->update($task)) {
+
+                header("Location: " . WEBROOT . "Tasks/index");
             }
         }
+
         $this->set($d);
         $this->render("edit");
     }
 
     function delete($id)
     {
+        $task = new TaskModel();
+        $task->setId($id);
 
-        $task = new TaskRepository();
-        $tk1= new TaskModel();
-        $tk1->setId($id);
-
-        if ($task->delete($tk1))
-        {
+        if ($this->taskRepository->delete($task)) {
             header("Location: " . WEBROOT . "tasks/index");
         }
     }

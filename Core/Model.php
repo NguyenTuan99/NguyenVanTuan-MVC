@@ -1,6 +1,6 @@
 <?php
 
-    namespace MVC\Core;
+namespace MVC\Core;
 
     class Model
     {
